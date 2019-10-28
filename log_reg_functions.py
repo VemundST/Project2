@@ -34,11 +34,11 @@ def cost_log_ols(prediction, data):
     norm = calc/data.shape[1]
     return norm
 
-def cost_grad_log_ols(design, data, p):
+def gradient_ols(design, data, p):
     '''
     Gradient w.r.t log
     '''
-    return (1/len(data))*design.T.dot(data-p)
+    return np.dot(design.T, (p - data)) / data.shape[0]
 
 
 def gradient_solver(N, eta, design, data, beta=None):
