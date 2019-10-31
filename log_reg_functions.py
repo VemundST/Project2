@@ -8,11 +8,23 @@ def sigmoid(prediction):
     '''
     return 1. / (1. + np.exp(-prediction))
 
-def relu_(prediction):
-    '''
-    Relu activation function
-    '''
+def sigmoid_deriv(activation):
+    derivative = activation*(1-activation)
+    return derivative
+
+def relu(prediction):
+    out = np.copy(prediction)
+    out[np.where(prediction < 0)]=0
+    return out
+
+def nooutact(prediction):
     return prediction
+
+def relu_deriv(prediction):
+    derivative = np.copy(prediction)
+    derivative[np.where(prediction < 0)] = 0
+    derivative[np.where(prediction >= 0)] = 1
+    return derivative
 
 def cost_mse_ols(design, data, beta):
     '''
