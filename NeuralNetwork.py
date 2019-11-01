@@ -4,11 +4,13 @@ import functions as fx
 
 
 class ANN():
-    def __init__(self, lmb=0, bias=0, eta=0.0001, mode = 'classification'):
+    def __init__(self, lmb=0, bias=0, eta=0.0001, early_stop_tol = 0.0, early_stop_nochange=10, mode = 'classification'):
         self.lmb=lmb
         self.bias = bias
         self.eta=eta
         self.mode = mode
+        self.early_stop_tol = early_stop_tol
+        self.early_stop_nochange = early_stop_nochange
 
         self.n_layers=int()
         self.layers=dict()
@@ -64,12 +66,14 @@ class ANN():
             else:
                 self.pred[str(i)] = np.matmul(self.act[str(i-1)], self.layers['w'+str(i)]) + self.layers['b'+str(i)]
                 self.act[str(i)] = activation[i](self.pred[str(i)])
-        return self.act
+        return self.act[str(self.n_layers-1)]
 
-    def train(self, epochs, batch_size, x, y, activation, derivative, verbose=False):
+    def train(self, epochs, batch_size, x, y, activation, derivative, xvalidation, yvalidation, verbose=False):
         tmp=int(len(y)/batch_size)
         Niter = min(200,tmp)
         indexes = np.arange(len(y))
+        cost = np.empty([epochs])
+
         for i in range(epochs):
             for j in range(Niter):
                 datapoints = np.random.choice(indexes, size=batch_size, replace=False)
@@ -78,12 +82,21 @@ class ANN():
 
                 self.feed(batch_x, activation)
                 self.back(batch_x,batch_y, derivative)
+
+            pred = self.feed_out(xvalidation, activation)
+
+            if self.mode == 'regression':
+                cost[i] = fx.MSE(pred.ravel(),yvalidation.ravel())
+            if self.mode == 'classification':
+                cost[i] = lrf.cost_log_ols(pred,yvalidation.T)
+
+            if i > self.early_stop_nochange:
+                if self.early_stop_tol>np.abs(cost[i-self.early_stop_nochange]-cost[i]) or cost[i] == np.nan:
+                    break
+
+
             if verbose:
                 if self.mode == 'regression':
-                    pred = self.feed_out(x, activation)[str(self.n_layers-1)]
-                    cost = fx.MSE(pred.ravel(),y.ravel())
-                    print('Epoch', i, 'loss', cost )
+                    print('Epoch', i+1, 'loss', cost[i] )
                 if self.mode == 'classification':
-                    pred = self.feed_out(x, activation)[str(self.n_layers-1)]
-                    cost = lrf.cost_log_ols(pred,y.T)
-                    print('Epoch', i, 'loss', cost )
+                    print('Epoch', i+1, 'loss', cost[i] )
