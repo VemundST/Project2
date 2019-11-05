@@ -39,8 +39,14 @@ class ANN():
     def back(self, design, data, derivative=[lrf.sigmoid_deriv, lrf.sigmoid_deriv]):
 
         for i in np.arange(self.n_layers-1,0,-1):
+
+
             if i==self.n_layers-1:
-                error = self.act[str(i)] - data
+                if self.mode == 'regression':
+                    error = self.act[str(i)] - data
+                    #error = 0.5*(self.act[str(i)] - data)**2
+                if self.mode == 'classification':
+                    error = (self.act[str(i)] - data)*derivative[i](self.act[str(i)])     
             else:
                 error = np.matmul(error, self.layers['w'+str(i+1)].T) * derivative[i](self.act[str(i)])
             if i == 0:
