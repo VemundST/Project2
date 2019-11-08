@@ -21,7 +21,10 @@ class ANN():
     def add_layers(self, n_neurons=[50,20], n_features=[20,1], n_layers=2):
         self.n_layers=n_layers
         for i in range(n_layers):
-            layer_weights = np.random.randn(n_features[i], n_neurons[i])
+            if i == 0:
+                layer_weights = np.random.randn(n_features[i], n_neurons[i])
+            else:
+                layer_weights = np.random.randn(n_features[i], n_neurons[i])*np.sqrt(2/n_neurons[i-1])
             self.layers['w'+str(i)] = layer_weights
             layer_bias = np.zeros(n_neurons[i]) + self.bias
             self.layers['b'+str(i)] = layer_bias
@@ -106,8 +109,8 @@ class ANN():
             pred_val = self.feed_out(xvalidation, activation)
             pred_train = self.feed_out(batch_x, activation)
             if self.mode == 'regression':
-                self.cost_val = self.cost_val.append(fx.MSE(pred_val.ravel(),yvalidation.ravel()))
-                self.cost_train = self.cost_train.append(fx.MSE(pred_train.ravel(),batch_y.ravel()))
+                self.cost_val.append(fx.MSE(pred_val.ravel(),yvalidation.ravel()))
+                self.cost_train.append(fx.MSE(pred_train.ravel(),batch_y.ravel()))
             if self.mode == 'classification':
                 self.cost_val.append(lrf.cost_log_ols(pred_val.ravel(),yvalidation.T))
                 self.cost_train.append(lrf.cost_log_ols(pred_train.ravel(),batch_y.T))
