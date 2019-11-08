@@ -42,8 +42,11 @@ def cost_log_ols(prediction, data):
     '''
     Logisitic regression cost function
     '''
+    length = data.shape[1]
+    prediction = prediction.ravel()
+    data = data.ravel()
     calc = -data.dot(np.log(sigmoid(prediction)+ 1e-16)) - ((1 - data).dot(np.log(1 - sigmoid(prediction) + 1e-16)))
-    norm = calc/data.shape[1]
+    norm = calc/length
     return norm
 
 def gradient_ols(design, data, p):

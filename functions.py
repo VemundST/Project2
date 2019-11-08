@@ -5,6 +5,8 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from scipy.stats import norm
 from sklearn.model_selection import train_test_split
 import scipy.linalg as scl
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
 
 ''' Franke Function and Design Matrix '''
 def FrankeFunction(x, y, noise_level=0):
@@ -278,3 +280,23 @@ def bootstrap(design, data, random_state):
     design_subset = design[selected_rows, :]
 
     return design_subset, data_subset
+
+def norm_confusion_matrix(y_true, y_pred,
+                          normalize=False,
+                          cmap=plt.cm.Blues):
+
+
+    # Compute confusion matrix
+    cm = confusion_matrix(y_true, y_pred)
+    # Only use the labels that appear in the data
+    #classes = classes[unique_labels(y_true, y_pred)]
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+
+    return cm
