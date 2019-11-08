@@ -87,7 +87,7 @@ def reshaper(k, data):
     return np.asarray(output)
 
 
-def k_fold_reshaper(k, indata, indesign, predictor, _lambda=0, shuffle=False):
+def k_fold_reshaper(k, indata, indesign, shuffle=True):
 
     '''
     Usage: k-fold cross validation employing either RidgeRegression, OridinaryLeastSquares or ols_svd
