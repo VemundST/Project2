@@ -15,6 +15,7 @@ def sigmoid_deriv(activation):
 def relu(prediction):
     out = np.copy(prediction)
     out[np.where(prediction < 0)]=0
+    out = np.clip(out,-300,300)
     return out
 
 def nooutact(prediction):
