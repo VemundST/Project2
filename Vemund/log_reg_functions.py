@@ -21,6 +21,10 @@ def relu(prediction):
 def nooutact(prediction):
     return prediction
 
+def nooutact_deriv(prediction):
+    out = np.ones(prediction.shape)
+    return out
+
 def relu_deriv(prediction):
     derivative = np.copy(prediction)
     derivative[np.where(prediction < 0)] = 0
