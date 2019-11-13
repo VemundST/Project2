@@ -1,6 +1,10 @@
-
 import numpy as np
-
+'''
+This file includes the activation functions and cost functions used by
+NeuralNetwork.py
+and
+LogisticRegression.py
+'''
 
 def sigmoid(prediction):
     '''
@@ -9,27 +13,41 @@ def sigmoid(prediction):
     return 1. / (1. + np.exp(-prediction))
 
 def sigmoid_deriv(activation):
+    '''
+    Returns derivative of sigmoid activation function.
+    '''
     derivative = activation*(1-activation)
     return derivative
 
 def relu(prediction):
+    '''
+    ReLU activation function.
+    '''
     out = np.copy(prediction)
     out[np.where(prediction < 0)]=0
     out = np.clip(out,-300,300)
     return out
 
+def relu_deriv(prediction):
+    '''
+    Returns the derivative of ReLU.
+    '''
+    derivative = np.copy(prediction)
+    derivative[np.where(prediction < 0)] = 0
+    derivative[np.where(prediction >= 0)] = 1
+    return derivative
+
 def nooutact(prediction):
+    '''
+    Can be used for activation in output layer in case of regression.
+    '''
     return prediction
 
 def nooutact_deriv(prediction):
     out = np.ones(prediction.shape)
     return out
 
-def relu_deriv(prediction):
-    derivative = np.copy(prediction)
-    derivative[np.where(prediction < 0)] = 0
-    derivative[np.where(prediction >= 0)] = 1
-    return derivative
+
 
 def cost_mse_ols(design, data, beta):
     '''
@@ -59,20 +77,6 @@ def gradient_ols(design, data, p):
     Gradient w.r.t log
     '''
     return np.dot(design.T, (p - data)) / data.shape[0]
-
-
-def gradient_solver(N, eta, design, data, beta=None):
-    M=len(data)
-    if beta != None:
-        beta = beta
-    else:
-        beta = np.random.randn(design.shape[1])
-
-    for i in range(N):
-        gradients = cost_grad_ols(design,frank,beta)
-        beta -= eta*gradients
-    return beta
-
 
 
 def reshaper(k, data):

@@ -2,8 +2,6 @@ import numpy as np
 import NeuralNetwork as nn
 import log_reg_functions as lrf
 
-
-
 def test_models(xtrain,ytrain,xval,yval,n_features, n_neurons, n_layers,activation, derivation, batch_size,etavec, lmbvec, bias=0,epochs=1000, early_stop_tol = 0, early_stop_nochange=50, mode = 'classification', regularization = 'l1'):
 
     best_net = object()

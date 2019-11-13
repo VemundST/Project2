@@ -284,7 +284,9 @@ def bootstrap(design, data, random_state):
 def norm_confusion_matrix(y_true, y_pred,
                           normalize=False,
                           cmap=plt.cm.Blues):
-
+    '''
+    Computes a normalized or non-nonrmalized confusion matrix.
+    '''
 
     # Compute confusion matrix
     cm = confusion_matrix(y_true, y_pred)
@@ -292,7 +294,7 @@ def norm_confusion_matrix(y_true, y_pred,
     #classes = classes[unique_labels(y_true, y_pred)]
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        
+
 
 
 

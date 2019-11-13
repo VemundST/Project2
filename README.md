@@ -8,19 +8,15 @@ Astrid Tesaker
 Vemund Stenbekk Thorkildsen
 Sofie Tunes
 
-The script functions.py includes the algorithms. The functions included are:
-LinearRegression
-NeuralNetwork --> 
+The code can be accessed from the folder /code. 
+In this folder you will find:
+PART_ABC_FIFTYFIFTY.ipynb # runs on downsampled data
+PART_ABC_ORIGINAL.ipynb # runds on original data
+Part_D_LinearRegression.ipynb #linear regression
+Functions.py #Legacy of project 1
+loaddata.py # script for loading data
+log_reg_functions # various costfunctions++
+LogisticRegression.py # object oriented code
+NeuralNetwork.py # object oriented code.
 
-
-DesignDesign --> for creating design matrix
-OridinaryLeastSquares --> OLS regression
-RidgeRegression
-k_fold_cv --> K-fold cross validation
-reshaper --> Used for sorting inside k_fold_cv
-N_bootstraps --> Bootstrap resampling and prediction.
-Bootstrap --> The actual resampling employed by N_bootstraps.
-MSE, r2, confidence_interval --> Error metrics.
-The jupyter notebook main.ipynb is used for running the codes in functions.py. The jupyter notebook test.ipynb is used for benchmarking the regression functions.
-
-The folder /figures includes all the plots that is included in the written report, with addition to some extra figures. The file SRTM_data_Norway_1.tif is the digital terrain dataset. The PDF file Project1_AT_VST_SMT.pdf is the written report.
+The folder /FiguresResult includes all the plots that is included in the written report, with addition to some extra figures. The Final written report is found in the main repository. 
