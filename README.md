@@ -4,9 +4,7 @@ This repository is for Project 2 in fys-stk 4155.
 
 The authors of the code and report are:
 
-Astrid Tesaker
-Vemund Stenbekk Thorkildsen
-Sofie Tunes
+Astrid Tesaker, Vemund Stenbekk Thorkildsen, Sofie Tunes.
 
 The code can be accessed from the folder /code. 
 In this folder you will find: 
