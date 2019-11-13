@@ -6,7 +6,7 @@ The authors of the code and report are:
 
 Astrid Tesaker, Vemund Stenbekk Thorkildsen and Sofie Tunes.
 
-The code can be accessed from the folder /code. 
+The code can be accessed from the folder /Code. 
 In this folder you will find: 
 
 PART_ABC_FIFTYFIFTY.ipynb #Runs on downsampled data
