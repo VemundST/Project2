@@ -26,3 +26,6 @@ LogisticRegression.py # object oriented code
 NeuralNetwork.py # object oriented code.
 
 The folder /FiguresResult includes all the plots that is included in the written report, with addition to some extra figures. The Final written report is found in the main repository. 
+
+
+The report from Project 1 will be found under 
